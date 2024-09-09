@@ -89,7 +89,7 @@
         tools:layout_editor_absoluteY="505dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_v_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="0.084" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_v_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="First Name"
@@ -113,7 +113,7 @@
         app:layout_constraintVertical_bias="0.203" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_v_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Last Name"
@@ -125,7 +125,7 @@
         app:layout_constraintVertical_bias="0.337" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_v_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
@@ -137,7 +137,7 @@
         app:layout_constraintVertical_bias="0.457" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_v_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Department"
@@ -147,4 +147,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.554" />
+
+    <TextView
+        android:id="@+id/txt_v_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Form not filled"
+        android:textColor="#7E0000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.655" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

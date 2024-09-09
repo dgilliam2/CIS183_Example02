@@ -1,12 +1,16 @@
 package com.example.cis183_example02;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<User> list_of_users;
 
+    TextView txt_j_error;
+    TextView txt_j_uname;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
         lst_j_entries       = findViewById(R.id.lst_v_entries);
 
+        txt_j_error         = findViewById(R.id.txt_v_error);
+        txt_j_uname         = findViewById(R.id.txt_v_uname);
+
         regButtonClick();
+        unameKeyListener();
         list_of_users = new ArrayList<User>();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -69,14 +80,79 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void unameKeyListener()
+    {
+        etxt_j_usr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                if(validUname(etxt_j_usr.getText().toString()))
+                {
+                    txt_j_uname.setTextColor(Color.BLACK);
+                    txt_j_uname.setText("Username");
+                }
+                else
+                {
+                    txt_j_uname.setTextColor(Color.RED);
+                    txt_j_uname.setText("Username Invalid");
+                };
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+    }
+
+    private boolean validUname(String u)
+    {
+        for (User user : list_of_users)
+        {
+            if(user.getUsername().equals(u))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void addUserToList()
     {
-        User usr = new User();
-        usr.setUsername(etxt_j_usr.getText().toString());
-        usr.setFname(etxt_j_fname.getText().toString());
-        usr.setLname(etxt_j_lname.getText().toString());
-        usr.setEmail(etxt_j_email.getText().toString());
-        list_of_users.add(usr);
+        if (!etxt_j_usr.getText().toString().isEmpty()
+                && !etxt_j_fname.getText().toString().isEmpty()
+                && !etxt_j_lname.getText().toString().isEmpty()
+                && !etxt_j_email.getText().toString().isEmpty())
+        {
+            User usr = new User();
+            usr.setUsername(etxt_j_usr.getText().toString());
+            usr.setFname(etxt_j_fname.getText().toString());
+            usr.setLname(etxt_j_lname.getText().toString());
+            usr.setEmail(etxt_j_email.getText().toString());
+            list_of_users.add(usr);
+            txt_j_error.setVisibility(View.INVISIBLE);
+            clearTextBoxes();
+        }
+        else
+        {
+            txt_j_error.setVisibility(View.VISIBLE);
+            Log.d("Error: ", "Form not filled");
+        }
+    }
+
+    private void clearTextBoxes()
+    {
+        etxt_j_usr.setText("");
+        etxt_j_fname.setText("");
+        etxt_j_lname.setText("");
+        etxt_j_email.setText("");
     }
 
     private void listUsers()
