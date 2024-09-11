@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     ListView lst_j_entries;
 
-    ArrayList<User> list_of_users;
+    ArrayList<User> user_list;
 
     TextView txt_j_error;
     TextView txt_j_uname;
+
+    UserListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         regButtonClick();
         unameKeyListener();
-        list_of_users = new ArrayList<User>();
+        user_list = new ArrayList<User>();
+        fillListView();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validUname(String u)
     {
-        for (User user : list_of_users)
+        for (User user : user_list)
         {
             if(user.getUsername().equals(u))
             {
@@ -136,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
             usr.setFname(etxt_j_fname.getText().toString());
             usr.setLname(etxt_j_lname.getText().toString());
             usr.setEmail(etxt_j_email.getText().toString());
-            list_of_users.add(usr);
+            user_list.add(usr);
             txt_j_error.setVisibility(View.INVISIBLE);
+            adapter.notifyDataSetChanged();
             clearTextBoxes();
         }
         else
@@ -157,9 +161,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void listUsers()
     {
-        for (User user : list_of_users)
+        for (User user : user_list)
         {
             Log.d("fname", user.getFname());
         }
+    }
+
+    private void fillListView()
+    {
+        adapter = new UserListAdapter(this, user_list);
+        lst_j_entries.setAdapter(adapter);
     }
 }
